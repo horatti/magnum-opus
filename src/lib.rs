@@ -448,7 +448,7 @@ impl Decoder {
 			sample_rate as i32,
 			channels as c_int,
 			&mut error) };
-		if error != ffi::OPUS_OK || ptr.is_null() {
+		if error != ffi::OPUS_OK as i32 || ptr.is_null() {
 			Err(Error::from_code("opus_decoder_create", error))
 		} else {
 			Ok(Decoder { ptr: ptr, channels: channels })
