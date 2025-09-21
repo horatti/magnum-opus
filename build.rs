@@ -67,8 +67,7 @@ fn link_homebrew_m1(name: &str) -> PathBuf {
     let entries = if let Ok(dir) = std::fs::read_dir(&path) {
         dir
     } else {
-        panic!("Could not find package in {}. Make sure your homebrew and package {} are all installed.", path.to_str().unwrap(),&name);
-    };
+        return PathBuf::new();
     let mut directories = entries
         .into_iter()
         .filter(|x| x.is_ok())
@@ -78,10 +77,7 @@ fn link_homebrew_m1(name: &str) -> PathBuf {
     // Find the newest version.
     directories.sort_unstable();
     if directories.is_empty() {
-        panic!(
-            "There's no installed version of {} in /opt/homebrew/Cellar",
-            name
-        );
+        return PathBuf::new();
     }
     path.push(directories.pop().unwrap());
     // Link the library.
