@@ -61,8 +61,7 @@ fn link_homebrew_m1(name: &str) -> PathBuf {
     let target_os = std::env::var("CARGO_CFG_TARGET_OS").unwrap();
     let target_arch = std::env::var("CARGO_CFG_TARGET_ARCH").unwrap();
     if target_os != "macos" || target_arch != "aarch64" {
-        panic!("Couldn't find VCPKG_ROOT, also can't fallback to homebrew because it's only for macos aarch64.");
-    }
+       return Ok(());    }
     let mut path = PathBuf::from("/opt/homebrew/Cellar");
     path.push(name);
     let entries = if let Ok(dir) = std::fs::read_dir(&path) {
